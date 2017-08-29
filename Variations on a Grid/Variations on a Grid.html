@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="/js/lib/dummy.js"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+
+  
+
+  <style type="text/css">
+    
+  </style>
+
+  <title>Variations on a Grid by keeknigh</title>
+
+  
+</head>
+
+<body>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+
+  
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+
+var colorCombo = ["RedBlue", "RedYellow", "YellowBlue"];
+var colorIndex = 0;
+
+
+function setup() {
+  createCanvas(800, 800);
+
+}
+
+function draw() {
+
+  var tileCount = 10;
+
+
+
+  background(255);
+
+
+  translate(width / tileCount / 2, height / tileCount / 2);
+
+
+
+  for (var gridY = 0; gridY < tileCount; gridY++) {
+
+    for (var gridX = 0; gridX < tileCount; gridX++) {
+
+      var posX = width / tileCount * gridX;
+      var posY = width / tileCount * gridY;
+
+
+      if (colorCombo[colorIndex] == "RedBlue" || colorCombo[colorIndex] == "RedYellow") {
+        //Red X
+        push();
+        noStroke();
+        fill(255, 51, 153, 50);
+        ellipse(posX, posY, mouseX / 2, mouseX / 2);
+        pop();
+      }
+
+      if (colorCombo[colorIndex] == "RedBlue" || colorCombo[colorIndex] == "YellowBlue") {
+        //Blue Y
+        push();
+        noStroke();
+        fill(0, 153, 255, 50);
+        ellipse(posX, posY, mouseY / 2, mouseY / 2);
+        pop();
+      }
+
+      if (colorCombo[colorIndex] == "YellowBlue") {
+        //Yellow X
+        push();
+        noStroke();
+        fill(255, 255, 153, 50);
+        ellipse(posX, posY, mouseX / 2, mouseX / 2);
+        pop();
+      }
+
+      if (colorCombo[colorIndex] == "RedYellow") {
+        //Yellow Y
+        push();
+        noStroke();
+        fill(255, 255, 153, 50);
+        ellipse(posX, posY, mouseY / 2, mouseY / 2);
+        pop();
+      }
+
+
+
+
+    }
+  }
+
+}
+
+function mouseClicked() {
+  if (colorIndex == 2) {
+    colorIndex = 0;
+  } else {
+    colorIndex++
+  };
+  return false;
+}
+
+//]]> 
+
+</script>
+
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "f5azz0dd"
+    }], "*")
+  }
+</script>
+
+</body>
+
+</html>
+

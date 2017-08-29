@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.7/processing.min.js"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+
+  
+
+  <style type="text/css">
+    
+  </style>
+
+  <title>Text Agents by keeknigh</title>
+
+  
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.min.js"></script>
+
+
+
+  
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+
+/*TEXT AGENTS
+Press any letter on the keyboard and click on the canvas to start a random walking agent.
+Works with capital or lower case.
+Press shift to clear canvas.
+*/
+
+
+
+var x;
+var y;
+var background = 51;
+var interval;
+var size;
+var sizeChange;
+var letter;
+
+var drawLetters;
+
+var H;
+var S;
+var B;
+
+var hVals = new Array(26);
+
+
+
+
+function setup() {
+  colorMode(HSB);
+  background(255);
+
+	createCanvas(800, 800);
+  
+  sizeChange = .25;
+
+  drawLetters = false;
+
+  letter = key;
+
+  interval = random(100, 200);
+
+  /*Load array of H values
+  H values go from 0 to 360. Each letter of the alphabet gets
+  one H value. Since 360 / 26 is roughly 13, the H value gets
+  incremented by 13 for each letter.*/
+  var hIncrement = 0;
+  for (var i = 0; i < 27; i++) {
+    hVals[i] = hIncrement;
+    hIncrement += 13;
+  }
+
+  //console.log("hVals: " + hVals);
+
+  //Saturation and brightness remain same value
+  S = 100;
+  B = 100;
+
+
+
+}
+
+function draw() {
+
+  console.log(letter);
+  
+  textAlign(CENTER);
+  fill(H, S, B);
+  textSize(size);
+  textFont("Georgia");
+
+  if (drawLetters == true) {
+    text(letter, x, y);
+  }
+
+  var r = floor(random(8));
+
+  switch (r) {
+    case 0: //move E
+      x += interval;
+      size -= sizeChange;
+      break;
+    case 1: //move W
+      x -= interval;
+      size -= sizeChange;
+      break;
+    case 2: //move N
+      y += interval;
+      size -= sizeChange;
+      break;
+    case 3: //move S
+      y -= interval;
+      size -= sizeChange;
+      break;
+    case 4: //move NE
+      y += interval;
+      x += interval;
+      size -= sizeChange;
+      break;
+    case 5: //move NW
+      y += interval;
+      x -= interval;
+      size -= sizeChange;
+      break;
+    case 6: //move SE
+      y -= interval;
+      x += interval;;
+      break;
+    case 7: //move SW
+      y -= interval;
+      x -= interval;
+      size -= sizeChange;
+      break;
+
+
+
+
+  }
+
+}
+
+function mouseClicked() {
+
+  //console.log("mouse is clicked");
+
+  drawLetters = true;
+
+  //set x and y to current mouse pos
+  x = mouseX;
+  y = mouseY;
+
+  //change size and interval for next click
+  size = random(100, 300);
+  //interval = random(15, 30);
+
+
+  return false;
+}
+
+
+
+function keyTyped() {
+  drawLetters = false;
+  letter = key;
+  H = hVals[setHVal(keyCode)];
+  
+  
+  //console.log(keyCode);
+  //console.log(key);
+  //console.log("setHVal(keyCode): " + setHVal(keyCode));
+  //console.log("H: " + H);
+  
+  return false;
+}
+
+function keyPressed() {
+
+  //Clear canvas with space
+  if (keyCode == 32) {
+    drawLetters = false;
+    clear();
+    background(255);
+  }
+
+}
+
+/*function setHVal akes the key code value of the key pressed and offsets it to return index to be used in hVals array.*/
+function setHVal(code) {
+
+  var hIndex;
+
+  console.log("key Code: " + code);
+
+  //capital letters
+  if (code >= 65 && code <= 90) {
+    hIndex = code - 65;
+  }
+  //lowercase letters
+  else if (code >= 96 && code <= 122) {
+    hIndex = code - 96;
+  }
+
+
+  //console.log("hIndex: " + hIndex);
+
+  //newH = hVals[hIndex];
+  return hIndex;
+
+}
+
+
+
+//]]> 
+
+</script>
+
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "6h429m3r"
+    }], "*")
+  }
+</script>
+
+</body>
+
+</html>
+

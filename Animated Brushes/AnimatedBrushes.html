@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.7/processing.min.js"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+
+  
+
+  <style type="text/css">
+    
+  </style>
+
+  <title>Animated Brush by keeknigh</title>
+
+  
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.min.js"></script>
+
+  
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+
+var ellipseLength = 0;
+var ellipseWidth = 0;
+
+var angle = 0;
+
+var paletteIndex = 0;
+
+var colorIndex = 0;
+
+var alpha;
+
+var currentColor;
+var monochrome;
+
+//create array of color palette IDs
+var colorPalettes = ["palette1", "palette2", "palette3", "monochrome"];
+
+//Colors
+var TURQUOISE;
+var YELLOW;
+var ORANGECREME;
+var MAGENTA;
+var CORALPINK;
+var EGGPLANT;
+var MINT;
+var WINTERBLUE;
+var GREY;
+var MINTBLUE;
+var CORALRED;
+var NAVY;
+var BLACK;
+var WHITE;
+
+//Define color palettes
+var palette1 = [];
+var palette2 = [];
+var palette3 = [];
+
+//Colors for current color palette
+var color1;
+var color2;
+var color3;
+var color4;
+
+
+
+
+function setup() {
+
+  clear();
+  createCanvas(800, 600);
+  background(255, 255, 255);
+  alpha = 100;
+
+
+  ellipseMode(RADIUS);
+  rectMode(CORNERS);
+
+  currentColor = 0;
+  monochrome = false;
+
+  //Define Colors
+
+  //Color palette 1:
+  TURQUOISE = color(39, 169, 182, alpha);
+  YELLOW = color(246, 230, 117, alpha);
+  ORANGECREME = color(254, 153, 143, alpha);
+  MAGENTA = color(233, 51, 162, alpha);
+
+  //Color palette 2: Coral pink, Eggplant, Mint, Winter blue
+  CORALPINK = color(255, 123, 137, alpha);
+  EGGPLANT = color(138, 81, 132, alpha);
+  MINT = color(202, 227, 205, alpha);
+  WINTERBLUE = color(165, 202, 210, alpha);
+
+  //Color palette 3:
+  GREY = color(158, 154, 153, alpha);
+  MINTBLUE = color(201, 231, 221, alpha);
+  CORALRED = color(239, 99, 98, alpha);
+  NAVY = color(33, 53, 86, alpha);
+
+  //Color palette 4 is Monochrome
+  BLACK = color(0, 0, 0);
+  WHITE = color(255, 255, 255);
+
+  //Define color palettes
+  palette1 = [TURQUOISE, YELLOW, ORANGECREME, MAGENTA];
+  palette2 = [CORALPINK, EGGPLANT, MINT, WINTERBLUE];
+  palette3 = [GREY, MINTBLUE, CORALRED, NAVY];
+
+  //Displayed color scheme
+  color1 = TURQUOISE;
+  color2 = YELLOW;
+  color3 = ORANGECREME;
+  color4 = MAGENTA;
+
+
+
+
+
+
+
+}
+
+function draw() {
+
+
+  if (angle == 360) {
+    angle = 0;
+  }
+
+
+  switch (colorPalettes[paletteIndex]) {
+    case ("palette1"):
+      noStroke();
+      currentColor = palette1[colorIndex];
+      break;
+    case ("palette2"):
+      noStroke();
+      currentColor = (palette2[colorIndex]);
+      break;
+    case ("palette3"):
+      currentColor = (palette3[colorIndex]);
+      noStroke();
+      break;
+    case ("monochrome"):
+      monochrome = true;
+      break;
+  }
+
+
+  if (mouseIsPressed) {
+
+
+    push();
+    translate(mouseX, mouseY);
+    rotate(radians(angle));
+
+    if (monochrome == true) {
+      strokeWeight(1);
+      stroke(BLACK);
+      fill(WHITE);
+    } else {
+      noStroke();
+      fill(currentColor);
+    }
+    ellipse(0, 0, ellipseLength, ellipseWidth);
+    pop();
+
+
+  }
+
+  angle += random(12);
+  ellipseLength = random(100, 125);
+  ellipseWidth = random(2, 8);
+
+
+
+
+  //Draw Interface
+
+  //Grey box
+  push();
+  fill(GREY);
+  rect(0, 545, 800, 600);
+  pop();
+
+
+  //Text
+  push();
+  textSize(15);
+  fill(255, 255, 255);
+  textFont("Georgia");
+  text("Mouse Scroll: Change color", 5, 565);
+  text("Keys 1-4: Change color scheme", 5, 580);
+  text("Space: Clear", 5, 595);
+  text("Current Color:", 400, 565);
+  text("Color Scheme:", 400, 580);
+  pop();
+
+
+
+  //Current color
+  push();
+  fill(255, 255, 255);
+  rect(500, 565, 540, 555);
+  pop();
+
+  push();
+  fill(currentColor);
+  rect(500, 565, 540, 555);
+  pop();
+
+  //Color Scheme
+
+  push();
+  fill(255, 255, 255);
+  rect(500, 580, 540, 570);
+  pop();
+
+  //determine which palette is being used
+  switch (colorPalettes[paletteIndex]) {
+    case ("palette1"):
+      color1 = TURQUOISE;
+      color2 = YELLOW;
+      color3 = ORANGECREME;
+      color4 = MAGENTA;
+      break;
+    case ("palette2"):
+      color1 = CORALPINK;
+      color2 = EGGPLANT;
+      color3 = MINT;
+      color4 = WINTERBLUE;
+      break;
+    case ("palette3"):
+      color1 = GREY;
+      color2 = MINTBLUE;
+      color3 = CORALRED;
+      color4 = NAVY;
+      break;
+    case ("monochrome"):
+      color1 = BLACK;
+      color2 = BLACK;
+      color3 = WHITE;
+      color4 = WHITE;
+      break;
+  }
+
+  //Draw appropriate rects
+
+  push();
+  noStroke();
+  fill(color1);
+  rect(500, 580, 510, 570);
+  pop();
+
+  push();
+  noStroke();
+  fill(color2);
+  rect();
+  rect(510, 580, 520, 570);
+  pop();
+
+  push();
+  noStroke();
+  fill(color3);
+  rect();
+  rect(520, 580, 530, 570);
+  pop();
+
+  push();
+  noStroke();
+  fill(color4);
+  rect();
+  rect(530, 580, 540, 570);
+  pop();
+
+
+
+  //Slider
+
+  monochrome = false;
+}
+
+
+
+
+
+/*function mousePressed() {
+  ellipseLength = random(100, 150);
+  ellipseWidth = random(8, 15);
+
+
+}*/
+
+
+
+
+
+function mouseWheel(event) {
+
+  if (colorIndex == 3) {
+    colorIndex = 0;
+  } else {
+    colorIndex++;
+  }
+
+  return false;
+
+}
+
+
+
+
+function keyPressed() {
+
+  console.log("key released");
+  console.log(key);
+
+  //Clear canvas with space
+  if (keyCode == 32) {
+    clear();
+    background(255, 255, 255);
+  }
+
+
+  switch (key) {
+    case ("1"):
+      paletteIndex = 0;
+      break;
+    case ("2"):
+      paletteIndex = 1;
+      break;
+    case ("3"):
+      paletteIndex = 2;
+      break;
+    case ("4"):
+      paletteIndex = 3;
+      monochrome = true;
+      break;
+  }
+
+  console.log("palette index = " + paletteIndex);
+
+  return false;
+}
+
+
+
+
+function mouseClicked() {
+  return false;
+}
+
+//]]> 
+
+</script>
+
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "djycabcc"
+    }], "*")
+  }
+</script>
+
+</body>
+
+</html>
+

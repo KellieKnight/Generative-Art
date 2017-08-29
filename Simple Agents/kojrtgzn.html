@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.7/processing.min.js"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+
+  
+
+  <style type="text/css">
+    
+  </style>
+
+  <title>Simple Agents #2 by keeknigh</title>
+
+  
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.min.js"></script>
+
+  
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+
+var x;
+var y;
+var background = 51;
+var interval;
+var radius;
+
+var R;
+var G;
+var B;
+
+
+var colorScheme = ["cyan", "purpleblue", "bluepink"];
+var colorIndex;
+var incrementColor; //tells us if we need to switch directions when changing RGB values
+var colorIncVal; //how much to increment the color
+
+function setup() {
+  createCanvas(800, 800);
+  background(51);
+  
+  interval = random(15, 20);
+
+  //Start cyan
+  R = 0;
+  G = 255;
+  B = 255;
+
+  incrementColor = true;
+  colorIncVal = 20;
+
+  colorIndex = 0;
+
+
+}
+
+function draw() {
+
+
+  fill(R, G, B, 75);
+  noStroke();
+  ellipse(x, y, radius, radius);
+  //quad(x, y, noise(x), noise(y), noise(x), noise(y), noise(x), noise(y) );
+
+  var r = floor(random(8));
+
+  switch (r) {
+    case 0: //move E
+      x += interval;
+      changeColors();
+      break;
+    case 1: //move W
+      x -= interval;
+      changeColors();
+      break;
+    case 2: //move N
+      y += interval;
+      changeColors();
+      break;
+    case 3: //move S
+      y -= interval;
+      changeColors();
+      break;
+    case 4: //move NE
+      y += interval;
+      x += interval;
+      changeColors();
+      break;
+    case 5: //move NW
+      y += interval;
+      x -= interval;
+      changeColors();
+      break;
+    case 6: //move SE
+      y -= interval;
+      x += interval;
+      changeColors();
+      break;
+    case 7: //move SW
+      y -= interval;
+      x -= interval;
+      changeColors();
+      break;
+
+
+
+
+  }
+
+}
+
+function mouseClicked() {
+
+	//set x and y to current mouse pos
+  x = mouseX;
+  y = mouseY;
+
+  //change radius and interval for next click
+  radius = random(10, 25);
+  //interval = random(15, 30);
+
+  //change color scheme for next click
+  if (colorIndex == 3) {
+    colorIndex = 0;
+  } else {
+    colorIndex++;
+  }
+
+  switch (colorScheme[colorIndex]) {
+
+    case "cyan":
+      R = 0;
+      G = 255;
+      B = 255;
+      break;
+    case "purpleblue":
+      R = 140;
+      G = 0;
+      B = 255;
+      break;
+    case "bluepink":
+      R = 0;
+      G = 140;
+      B = 255;
+      break;
+  }
+
+
+  return false;
+}
+
+function changeColors() {
+
+	if(radius > 0)
+	{radius-= .15;}
+
+
+  if (R >= 255 || G >= 255) {
+    incrementColor = false;
+  }
+  if (R <= 0 || G <= 0) {
+    incrementColor = true;
+  }
+
+  //Change R value for cyan and bluepink schemes
+  if (colorScheme[colorIndex] == "cyan" || colorScheme[colorIndex] == "bluepink") {
+    switch (incrementColor) {
+      case true:
+        R += colorIncVal;
+        break;
+      case false:
+        R -= colorIncVal;
+        break;
+    }
+  }
+  //change G value for purpleblue
+  else if (colorScheme[colorIndex] == "purpleblue") {
+    switch (incrementColor) {
+      case true:
+        G += colorIncVal;
+        break;
+      case false:
+        G -= colorIncVal;
+        break;
+    }
+
+  }
+
+
+
+
+}
+
+//]]> 
+
+</script>
+
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "kojrtgzn"
+    }], "*")
+  }
+</script>
+
+</body>
+
+</html>
+
